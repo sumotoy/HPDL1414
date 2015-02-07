@@ -1,0 +1,31 @@
+#######################################
+# Syntax Coloring Map For HPDL1414
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+HPDL1414	KEYWORD1
+clearAll	KEYWORD1
+clear	KEYWORD1
+clearDigit	KEYWORD1
+fillDigitsFrom	KEYWORD1
+fillDigitsTo	KEYWORD1
+fillDigitsBetween	KEYWORD1
+printString	KEYWORD1
+printNumber	KEYWORD1
+blankFromTo	KEYWORD1
+trigBlank	KEYWORD1
+stopBlank	KEYWORD1
+setAutoclean	KEYWORD1
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+begin	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
