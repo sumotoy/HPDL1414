@@ -171,18 +171,7 @@ It return -1 if digit it's out of boundary.
 */
 uint8_t HPDL1414::_digitToUnit(uint8_t digit){
 	if (digit >= _maxDigits) return _dispDrived - 1;
-	uint8_t d = 0;
-	uint8_t unit = 0;
-	for (uint8_t i=0;i<_maxDigits;i++){
-		if (digit == i) return unit;
-		if (d >= (_digitPerUnit-1)){
-			d = 0;
-			unit++;
-		} else {
-			d++;
-		}
-	}
-	return unit;
+	return digit / 4;
 }
 
 void HPDL1414::writeCharacter(char c, uint8_t digit, bool autoPosition,bool updateBuff) {
