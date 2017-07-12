@@ -1,10 +1,10 @@
 /*
-                               _                
- ___  _   _  _ __ ___    ___  | |_  ___   _   _ 
+                               _
+ ___  _   _  _ __ ___    ___  | |_  ___   _   _
 / __|| | | || '_ ` _ \  / _ \ | __|/ _ \ | | | |
 \__ \| |_| || | | | | || (_) || |_| (_) || |_| |
 |___/ \__,_||_| |_| |_| \___/  \__|\___/  \__, |
-                                          |___/ 
+                                          |___/
 
 --------------------------------------------------------------------------------
 A fast C-Library for HPDL1414 or DLR1414 or DLG1414 intelligent displays
@@ -16,7 +16,7 @@ VERSION 0.5 (06 febb 2015)
 coded by Max MC Costa for s.u.m.o.t.o.y - sumotoy@gmail.com
 note: if you want to use (even parts), inform to the author, thanks!
 --------------------------------------------------------------------------------
-I have already coded another similar library but it's old and has several errors. 
+I have already coded another similar library but it's old and has several errors.
 HPDL1414 doesn't use CE pins so the old library it's useless with those displays.
 I just got several HPDL so I decided to code another library and here's.
 It uses the MCP23S17 from Microchip as the old one so you can drive 6x4 chars directly,
@@ -28,7 +28,7 @@ dependancy:
 This library use my gpio_expander library for addressing GPIO
 https://github.com/sumotoy/gpio_expander
 You need to download and install this first!
-Of course, you'll need a MCP23S17 chip from microchip. 
+Of course, you'll need a MCP23S17 chip from microchip.
 --------------------------------------------------------------------------------
 version note:
 First fully working version.
@@ -83,7 +83,7 @@ The other pins of the GPIO:
 pin 9 -> VDD (5V)
 pin 10 -> ground
 pin 15	HAEN addressing A0
-pin 16	HAEN addressing A1 
+pin 16	HAEN addressing A1
 pin 17	HAEN addressing A2
 (00100A2A1A0) If tied to ground:00100000 = 0x20)
 pin 18	tie to 5V
@@ -97,7 +97,7 @@ CAUTION! Do NOT invert positive or ground or you will destroy display in  1 mill
 class HPDL1414 : public Print {
  public:
 	HPDL1414(const uint8_t cs_pin,const uint8_t addr);//SPI
-	
+
 	void		begin(const uint8_t howManyDisp);
 	void 		clearAll(void);
 	void 		clear(uint8_t dispUnit);
@@ -122,7 +122,7 @@ class HPDL1414 : public Print {
 	virtual size_t 		write(uint8_t);
 	using Print::write;
  protected:
-	
+
  private:
 	mcp23s17     mygpio;//here the instance
 	uint8_t 			_CS;
@@ -143,7 +143,6 @@ class HPDL1414 : public Print {
 	uint8_t 			_digitToUnit(uint8_t digit);
 	uint8_t 			_selectDigit(uint8_t digit);
 	void 				setDisplayUnit(uint8_t dispNo,boolean state);
-	void 				_sideDelay(uint8_t val);
 	void 				sendData(uint8_t disp);
 	uint8_t 			charReplace(char c);
 	void 				_scrollEngine(char const* testo,uint8_t lenght,uint8_t advance);
