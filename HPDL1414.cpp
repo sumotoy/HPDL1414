@@ -15,7 +15,7 @@ HPDL1414::HPDL1414(const uint8_t cs_pin,const uint8_t addr){
 
 void HPDL1414::begin(const uint8_t howManyDisp){
 	_dispDrived = howManyDisp;
-	
+
 	if (howManyDisp < 1) _dispDrived = 1;//at list 1!
 	_maxDigits = _dispDrived*_digitPerUnit;//calculate once _maxDigits
 
@@ -30,24 +30,24 @@ void HPDL1414::begin(const uint8_t howManyDisp){
 void HPDL1414::clearAll(void){
 
 	mygpio.gpioPort(0b00100000,0b00000000);
-	_sideDelay(3);
+	delayMicroseconds(3);
 	mygpio.gpioPort(0b00100000,0b11111100);
-	_sideDelay(3);;
-	
+	delayMicroseconds(3);;
+
 	mygpio.gpioPort(0b00100000,0b00000010);
-	_sideDelay(3);
+	delayMicroseconds(3);
 	mygpio.gpioPort(0b00100000,0b11111110);
-	_sideDelay(3);
+	delayMicroseconds(3);
 
 	mygpio.gpioPort(0b00100000,0b00000001);
-	_sideDelay(3);
+	delayMicroseconds(3);
 	mygpio.gpioPort(0b00100000,0b11111101);
-	_sideDelay(3);
-	
+	delayMicroseconds(3);
+
 	mygpio.gpioPort(0b00100000,0b00000011);
-	_sideDelay(3);
+	delayMicroseconds(3);
 	mygpio.gpioPort(0b00100000,0b11111111);
-	_sideDelay(3);
+	delayMicroseconds(3);
 	clearBuffers();
 	_cursorPos = 0;
 }
@@ -178,7 +178,7 @@ void HPDL1414::writeCharacter(char c, uint8_t digit, bool autoPosition,bool upda
 	uint8_t unit = _selectDigit(digit);//got the display interested and set his digit
 	_valueData = charReplace(c);
 	if (updateBuff == true) updateBuffer(digit,_valueData);
-	
+
 	sendData(unit);
 	if (autoPosition) _cursorPos++;
 }
@@ -188,7 +188,7 @@ void HPDL1414::writeChar(char c,uint8_t digit,bool autoPosition) {
 	if (digit < _maxDigits){
 		writeCharacter(c,digit,false,true);
 		if (autoPosition) _cursorPos = digit;
-	} 
+	}
 }
 
 //public:
@@ -204,7 +204,7 @@ inline size_t HPDL1414::write(uint8_t value) {
 }
 
 void HPDL1414::updateBuffer(uint8_t pos,uint8_t val){
-	if (pos < _maxDigits && val != 0x20){// 
+	if (pos < _maxDigits && val != 0x20){//
 		_bufferVal[pos] = (char)val;
 	}
 }
@@ -235,11 +235,11 @@ void HPDL1414::printString(char const* stringToDisplay,uint8_t efxAmount){
 					writeCharacter(stringToDisplay[stringLenght-cpos-1],_cursorPos,true);
 				} else {
 					writeCharacter(stringToDisplay[stringLenght-cpos-1],_cursorPos,true);
-				}					
+				}
 				#endif
 			}
 		}
-		if (_autoclean) fillDigitsFrom(getCursor()+1);	
+		if (_autoclean) fillDigitsFrom(getCursor()+1);
    } else { //stringa troppo lunga, usa lo scroll
 		scroll(stringToDisplay,100);
    }
@@ -261,12 +261,6 @@ uint8_t HPDL1414::charReplace(char c){
 	if (c > 96 && c < 123) c = c - 32;
 	if (c > 121) c = 0x20;
 	return c;
-}
-
-void HPDL1414::_sideDelay(uint8_t val){
-	if (val > 0){
-		delayMicroseconds(val);
-	}
 }
 
 void HPDL1414::_scrollEngine(char const* testo,uint8_t lenght,uint8_t advance){
@@ -305,7 +299,7 @@ void HPDL1414::scroll(char const* testo,unsigned int speed) {
 		}
 		setCursor(0);
 	}
-} 
+}
 
 void HPDL1414::blankFromTo(uint8_t from,uint8_t to){
 	if (from <= to && to < _maxDigits){
@@ -352,7 +346,7 @@ void HPDL1414::sendData(uint8_t disp){
 	setDisplayUnit(disp,true);
 	temp =  _valueData | (_contrData << 8);//combine 2 bytes
 	mygpio.gpioPort(temp);
-	_sideDelay(3);
+	delayMicroseconds(3);
 	setDisplayUnit(disp,false);
 	temp =  _valueData | (_contrData << 8);//combine 2 bytes
 	mygpio.gpioPort(temp);
@@ -364,7 +358,7 @@ void HPDL1414::printData(uint16_t data,uint8_t ln){
   for (int i=ln-1; i>=0; i--){
     if (bitRead(data,i)==1){
       Serial.print("1");
-    } 
+    }
     else {
       Serial.print("0");
     }
